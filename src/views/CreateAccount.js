@@ -1,12 +1,16 @@
 // React
 import React, { useState } from "react";
 // Router
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+// Firebase
+// import { app } from "../firebaseConfig";
 // Utils
 import {
   isNullOrEmpty,
   boostrapIsInvalidInputSytle,
 } from "../utils/inputUtilities";
+
+import "./test.css";
 
 function CreateAccount() {
   let history = useHistory();
@@ -38,14 +42,15 @@ function CreateAccount() {
     setIsPasswordInvalid(boostrapIsInvalidInputSytle(passwordInvalid));
 
     if (!emailInvalid && !passwordInvalid) {
+      // console.log(auth);
       history.push("/login");
     }
   };
 
   return (
-    <div className="d-flex mt-5 justify-content-center">
-      <div className="col-8 card py-4">
-        <h2 class="card-title">Crear una nueva cuenta</h2>
+    <div className="d-flex fullscreen justify-content-center align-items-center">
+      <div className="card p-5">
+        <h2 class="card-title text-center">Crear una nueva cuenta</h2>
         <form>
           <div className="form-group">
             <label for="emailInput">Email</label>
@@ -82,7 +87,7 @@ function CreateAccount() {
             className="btn btn-success btn-block"
             onClick={handleSubmit}
           >
-            Iniciar sesión
+            Crear cuenta
           </button>
         </form>
       </div>
