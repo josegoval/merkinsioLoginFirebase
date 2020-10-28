@@ -2,7 +2,18 @@
 import React, { useState } from "react";
 // Router
 import { Link, useHistory } from "react-router-dom";
-import { login, translateAuthErrors } from "../firebase/firebaseFunctions";
+// Components
+import Separator from "../components/Separator";
+// Icons
+import { FcGoogle } from "react-icons/fc";
+import { FaFacebook } from "react-icons/fa";
+// Firebase
+import {
+  login,
+  loginWithProvider,
+  translateAuthErrors,
+} from "../firebase/firebaseFunctions";
+import { googleProvider } from "../firebase/firebase-config";
 // Utils
 import {
   isNullOrEmpty,
@@ -11,7 +22,7 @@ import {
 
 import "./test.css";
 
-function Login({ setLoggedIn }) {
+function Login() {
   let history = useHistory();
   const [isEmailInvalid, setIsEmailInvalid] = useState("");
   const [isPasswordInvalid, setIsPasswordInvalid] = useState("");
@@ -44,16 +55,29 @@ function Login({ setLoggedIn }) {
 
     if (!emailInvalid && !passwordInvalid) {
       const result = await login(emailInput, passwordInput);
-      console.log(result);
+      // if ok fo to admin
       if (result[0]) {
         history.push("/admin:" + result[1]);
         return;
       }
-
+      // if error display alert
       setVisibleErrorMessage(true);
       setErrorMessage(translateAuthErrors(result[1]));
     }
   };
+
+  const handleSocialSubmit = async (provider) => {
+    const result = await loginWithProvider(provider);
+    console.log(result);
+    if (result[0]) {
+      history.push("/admin:" + result[1]);
+    }
+
+    // if error display alert
+    setVisibleErrorMessage(true);
+    setErrorMessage(translateAuthErrors(result[1]));
+  };
+
   //  mt-5
   // col-8
   return (
@@ -74,7 +98,7 @@ function Login({ setLoggedIn }) {
                 onChange={handleEmailInput}
                 value={emailInput}
               />
-              <div class="invalid-feedback">
+              <div className="invalid-feedback">
                 Por favor, introduzca un email válido.
               </div>
             </div>
@@ -89,7 +113,7 @@ function Login({ setLoggedIn }) {
                 onChange={handlePasswordInput}
                 value={passwordInput}
               />
-              <div class="invalid-feedback">
+              <div className="invalid-feedback">
                 Por favor, introduzca una contraseña.
               </div>
             </div>
@@ -109,6 +133,22 @@ function Login({ setLoggedIn }) {
               onClick={handleSubmit}
             >
               Iniciar sesión
+            </button>
+            <Separator middleText="o inicia con . . ." />
+            {/* Social Media Logins */}
+            <button
+              type="button"
+              className="btn btn-outline-info btn-block"
+              onClick={() => handleSocialSubmit(googleProvider)}
+            >
+              <FcGoogle /> Google
+            </button>
+            <button
+              type="button"
+              className="btn btn-outline-info btn-block text-center"
+              onClick={() => {}}
+            >
+              <FaFacebook /> Facebook
             </button>
           </form>
           <div className="text-right mt-2">

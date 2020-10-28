@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function CustomNavBar() {
   return (
-    <nav class="navbar navbar-light bg-light">
+    <nav className="navbar navbar-light bg-light">
       {/* Logo */}
       <Link className="navbar-brand" to="/">
         Merkinsio Login App

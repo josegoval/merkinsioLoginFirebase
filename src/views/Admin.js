@@ -1,13 +1,26 @@
 // React
-import React from "react";
+import React, { useEffect } from "react";
 // Router
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
+// Firebase
+import firebase from "../firebase/firebase-config";
 
 export default function Admin() {
+  let history = useHistory();
   const { token } = useParams();
+
+  useEffect(() => {
+    const unsuscribe = firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        history.push("/login");
+      }
+    });
+    return () => unsuscribe();
+  });
+
   return (
     <div className="container">
-      <p className="px-5">Su token es {token}</p>
+      <p className="px-5">Su token es: {token}</p>
     </div>
   );
   // comprobar si esta logeado - admin sino login

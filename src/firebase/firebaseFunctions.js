@@ -37,6 +37,16 @@ export async function login(email, password) {
   }
 }
 
+export async function loginWithProvider(provider) {
+  try {
+    const response = await firebase.auth().signInWithPopup(provider);
+    const token = await response.credential.accessToken;
+    return [true, token];
+  } catch (error) {
+    return [false, error];
+  }
+}
+
 /**
  * Translate the login error messace via code
  * @param {Error} param0 error to destruct

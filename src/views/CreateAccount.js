@@ -73,7 +73,7 @@ function CreateAccount() {
               onChange={handleEmailInput}
               value={emailInput}
             />
-            <div class="invalid-feedback">
+            <div className="invalid-feedback">
               Por favor, introduzca un email válido.
             </div>
           </div>
@@ -88,7 +88,7 @@ function CreateAccount() {
               onChange={handlePasswordInput}
               value={passwordInput}
             />
-            <div class="invalid-feedback">
+            <div className="invalid-feedback">
               Por favor, introduzca una contraseña.
             </div>
           </div>

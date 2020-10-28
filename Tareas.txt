@@ -1,9 +1,9 @@
-    1. Cuanta en Firebase
-    2. React Limpio
-    3. Meter bootstrap
+X    1. Cuanta en Firebase
+X    2. React Limpio
+X    3. Meter bootstrap
 X   4. Crear la página del login (usuario-passs -> log in) contra fire base
-    5. registro firebase usuario 
-    6. Registro usuario (nombre-usuario-contraseña)
+X    5. registro firebase usuario 
+X    6. Registro usuario (usuario-contraseña)
     7. Cuando entre, panel de control, aparezca tabla de usuario
     8. LOGIN /firebase/google/facebook
 
