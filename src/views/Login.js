@@ -13,7 +13,7 @@ import {
   loginWithProvider,
   translateAuthErrors,
 } from "../firebase/firebaseFunctions";
-import { googleProvider } from "../firebase/firebase-config";
+import { facebookProvider, googleProvider } from "../firebase/firebase-config";
 // Utils
 import {
   isNullOrEmpty,
@@ -74,8 +74,17 @@ function Login() {
     }
 
     // if error display alert
-    setVisibleErrorMessage(true);
-    setErrorMessage(translateAuthErrors(result[1]));
+    displayError(result);
+  };
+
+  // DISPLAY ERROR
+  const displayError = (result) => {
+    const translatedMessage = translateAuthErrors(result[1]);
+
+    if (translatedMessage) {
+      setVisibleErrorMessage(true);
+      setErrorMessage();
+    }
   };
 
   //  mt-5
@@ -84,7 +93,7 @@ function Login() {
     <div className="container fullscreen">
       <div className="row h-100 justify-content-center align-items-center">
         <div className="col-8 card pt-4 px-5">
-          <h2 class="card-title text-center">Iniciar Sesión</h2>
+          <h2 className="card-title text-center">Iniciar Sesión</h2>
           <form>
             {/* Form inputs */}
             <div className="form-group">
@@ -134,7 +143,7 @@ function Login() {
             >
               Iniciar sesión
             </button>
-            <Separator middleText="o inicia con . . ." />
+            <Separator middleText="o inicia con..." />
             {/* Social Media Logins */}
             <button
               type="button"
@@ -146,7 +155,9 @@ function Login() {
             <button
               type="button"
               className="btn btn-outline-info btn-block text-center"
-              onClick={() => {}}
+              onClick={() => {
+                handleSocialSubmit(facebookProvider);
+              }}
             >
               <FaFacebook /> Facebook
             </button>

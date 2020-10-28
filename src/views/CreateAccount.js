@@ -59,7 +59,7 @@ function CreateAccount() {
   return (
     <div className="d-flex fullscreen justify-content-center align-items-center">
       <div className="card p-5">
-        <h2 class="card-title text-center">Crear una nueva cuenta</h2>
+        <h2 className="card-title text-center">Crear una nueva cuenta</h2>
         <form>
           {/* form inputs */}
           <div className="form-group">

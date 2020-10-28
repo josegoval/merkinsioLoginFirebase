@@ -37,8 +37,15 @@ export async function login(email, password) {
   }
 }
 
-export async function loginWithProvider(provider) {
+export async function loginWithProvider(provider, scope = null) {
   try {
+    //   if has scope add it
+    if (scope) {
+      scope.array.forEach((text) => {
+        provider.addScope(text);
+      });
+    }
+    // sign in with pop up...
     const response = await firebase.auth().signInWithPopup(provider);
     const token = await response.credential.accessToken;
     return [true, token];
@@ -72,6 +79,15 @@ export function translateAuthErrors({ code }) {
     case "auth/email-already-in-use":
       message = "Ese email ya existe.";
       break;
+
+    case "auth/operation-not-allowed":
+      message = "Esa opereración no está permitida.";
+      break;
+
+    case "auth/cancelled-popup-request":
+      message = null;
+      break;
+
     default:
       message = "Error general en el formulario.";
       break;
