@@ -3,7 +3,10 @@ import React, { useState } from "react";
 // Router
 import { useHistory } from "react-router-dom";
 // Firebase
-import { createUser, translateAuthErrors } from "../firebase/firebaseFunctions";
+import {
+  createUser,
+  translateAuthErrors,
+} from "../firebase/firebaseLoginAndCreateFunctions";
 // Utils
 import {
   isNullOrEmpty,

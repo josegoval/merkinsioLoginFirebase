@@ -12,7 +12,7 @@ import {
   login,
   loginWithProvider,
   translateAuthErrors,
-} from "../firebase/firebaseFunctions";
+} from "../firebase/firebaseLoginAndCreateFunctions";
 import { facebookProvider, googleProvider } from "../firebase/firebase-config";
 // Utils
 import {

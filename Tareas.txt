@@ -5,7 +5,7 @@ X   4. Crear la página del login (usuario-passs -> log in) contra fire base
 X    5. registro firebase usuario 
 X    6. Registro usuario (usuario-contraseña)
     7. Cuando entre, panel de control, aparezca tabla de usuario
-    8. LOGIN /firebase/google/facebook
+X    8. LOGIN /firebase/google/facebook
 
 Pintar arrores - badget
 
