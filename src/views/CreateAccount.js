@@ -3,13 +3,13 @@ import React, { useState } from "react";
 // Router
 import { useHistory } from "react-router-dom";
 // Firebase
-// import { app } from "../firebaseConfig";
+import { createUser, translateAuthErrors } from "../firebase/firebaseFunctions";
 // Utils
 import {
   isNullOrEmpty,
   boostrapIsInvalidInputSytle,
 } from "../utils/inputUtilities";
-
+// Css
 import "./test.css";
 
 function CreateAccount() {
@@ -18,6 +18,8 @@ function CreateAccount() {
   const [isPasswordInvalid, setIsPasswordInvalid] = useState("");
   const [emailInput, setEmailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
+  const [visibleErrorMessage, setVisibleErrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   //   INPUT HANDLERS
   const handleEmailInput = (e) => {
@@ -34,7 +36,7 @@ function CreateAccount() {
   };
 
   //   SUBMIT HANDLER
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const emailInvalid = isNullOrEmpty(emailInput);
     const passwordInvalid = isNullOrEmpty(passwordInput);
 
@@ -42,8 +44,15 @@ function CreateAccount() {
     setIsPasswordInvalid(boostrapIsInvalidInputSytle(passwordInvalid));
 
     if (!emailInvalid && !passwordInvalid) {
-      // console.log(auth);
-      history.push("/login");
+      const result = await createUser(emailInput, passwordInput);
+      // if correct move to admin view
+      if (result[0]) {
+        history.push(`/admin:${result[1]}`);
+        return;
+      }
+      // if error show the correct message
+      setErrorMessage(translateAuthErrors(result[1]));
+      setVisibleErrorMessage(true);
     }
   };
 
@@ -52,8 +61,9 @@ function CreateAccount() {
       <div className="card p-5">
         <h2 class="card-title text-center">Crear una nueva cuenta</h2>
         <form>
+          {/* form inputs */}
           <div className="form-group">
-            <label for="emailInput">Email</label>
+            <label htmlFor="emailInput">Email</label>
             <input
               type="email"
               className={"form-control " + isEmailInvalid}
@@ -68,7 +78,7 @@ function CreateAccount() {
             </div>
           </div>
           <div className="form-group">
-            <label for="passwordInput">Contraseña</label>
+            <label htmlFor="passwordInput">Contraseña</label>
             <input
               type="password"
               className={"form-control " + isPasswordInvalid}
@@ -82,6 +92,16 @@ function CreateAccount() {
               Por favor, introduzca una contraseña.
             </div>
           </div>
+          {/* Alert */}
+          <div
+            className={`alert alert-danger ${
+              visibleErrorMessage ? "visible" : "d-none"
+            }`}
+            role="alert"
+          >
+            {errorMessage}
+          </div>
+          {/* Submit button */}
           <button
             type="button"
             className="btn btn-success btn-block"

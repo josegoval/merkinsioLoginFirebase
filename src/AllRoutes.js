@@ -16,7 +16,7 @@ function AllRoutes() {
       <CustomNavBar />
       {/* Switch */}
       <Switch>
-        <Route path="/admin">
+        <Route path="/admin:token">
           <Admin />
         </Route>
         <Route path="/login">

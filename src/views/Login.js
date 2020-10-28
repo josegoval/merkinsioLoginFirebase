@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 // Router
 import { Link, useHistory } from "react-router-dom";
+import { login, translateAuthErrors } from "../firebase/firebaseFunctions";
 // Utils
 import {
   isNullOrEmpty,
@@ -16,6 +17,8 @@ function Login({ setLoggedIn }) {
   const [isPasswordInvalid, setIsPasswordInvalid] = useState("");
   const [emailInput, setEmailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
+  const [visibleErrorMessage, setVisibleErrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   //   INPUT HANDLERS
   const handleEmailInput = (e) => {
@@ -32,7 +35,7 @@ function Login({ setLoggedIn }) {
   };
 
   //   SUBMIT HANDLER
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const emailInvalid = isNullOrEmpty(emailInput);
     const passwordInvalid = isNullOrEmpty(passwordInput);
 
@@ -40,7 +43,15 @@ function Login({ setLoggedIn }) {
     setIsPasswordInvalid(boostrapIsInvalidInputSytle(passwordInvalid));
 
     if (!emailInvalid && !passwordInvalid) {
-      history.push("/admin");
+      const result = await login(emailInput, passwordInput);
+      console.log(result);
+      if (result[0]) {
+        history.push("/admin:" + result[1]);
+        return;
+      }
+
+      setVisibleErrorMessage(true);
+      setErrorMessage(translateAuthErrors(result[1]));
     }
   };
   //  mt-5
@@ -51,8 +62,9 @@ function Login({ setLoggedIn }) {
         <div className="col-8 card pt-4 px-5">
           <h2 class="card-title text-center">Iniciar Sesión</h2>
           <form>
+            {/* Form inputs */}
             <div className="form-group">
-              <label for="emailInput">Email</label>
+              <label htmlFor="emailInput">Email</label>
               <input
                 type="email"
                 className={"form-control " + isEmailInvalid}
@@ -67,7 +79,7 @@ function Login({ setLoggedIn }) {
               </div>
             </div>
             <div className="form-group">
-              <label for="passwordInput">Contraseña</label>
+              <label htmlFor="passwordInput">Contraseña</label>
               <input
                 type="password"
                 className={"form-control " + isPasswordInvalid}
@@ -81,6 +93,16 @@ function Login({ setLoggedIn }) {
                 Por favor, introduzca una contraseña.
               </div>
             </div>
+            {/* Alert */}
+            <div
+              className={`alert alert-danger ${
+                visibleErrorMessage ? "visible" : "d-none"
+              }`}
+              role="alert"
+            >
+              {errorMessage}
+            </div>
+            {/* Submit button */}
             <button
               type="button"
               className="btn btn-success btn-block"
