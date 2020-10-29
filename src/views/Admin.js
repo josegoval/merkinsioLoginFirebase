@@ -5,7 +5,7 @@ import { useHistory, useParams } from "react-router-dom";
 // Firebase
 import firebase from "../firebase/firebase-config";
 // Components
-import TableData from "../components/TableData";
+import TableData from "../components/AdminTable/TableData";
 
 export default function Admin() {
   let history = useHistory();
@@ -22,10 +22,27 @@ export default function Admin() {
 
   return (
     <div className="container">
-      <p className="px-5">Su token es: {token}</p>
+      {/* <p className="px-5">Su token es: {token}</p> */}
       <TableData
+        scrollableBody={true}
         header={["id", "Nombre", "Apellido", "Sueldo"]}
         body={[
+          ["3242", "María", "Perez", "1500"],
+          ["1423", "José", "Valdivieso", "1500"],
+          ["3242", "María", "Perez", "1500"],
+          ["1423", "José", "Valdivieso", "1500"],
+          ["3242", "María", "Perez", "1500"],
+          ["1423", "José", "Valdivieso", "1500"],
+          ["3242", "María", "Perez", "1500"],
+          ["1423", "José", "Valdivieso", "1500"],
+          ["3242", "María", "Perez", "1500"],
+          ["1423", "José", "Valdivieso", "1500"],
+          ["3242", "María", "Perez", "1500"],
+          ["1423", "José", "Valdivieso", "1500"],
+          ["3242", "María", "Perez", "1500"],
+          ["1423", "José", "Valdivieso", "1500"],
+          ["3242", "María", "Perez", "1500"],
+          ["1423", "José", "Valdivieso", "1500"],
           ["3242", "María", "Perez", "1500"],
           ["1423", "José", "Valdivieso", "1500"],
         ]}

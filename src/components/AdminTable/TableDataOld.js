@@ -2,8 +2,9 @@
 import React from "react";
 // PropTypes
 import PropTypes from "prop-types";
-
-import "../views/test.css";
+// Styles
+// import "../styles/styles.css";
+// import "../views/test.css";
 
 function TableData({
   header,
