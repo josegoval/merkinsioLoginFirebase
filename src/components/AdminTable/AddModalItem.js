@@ -10,7 +10,7 @@ import {
   isNullOrEmpty,
 } from "../../utils/inputUtilities";
 
-export default function AddModalItem({ onSubmit }) {
+export default function AddModalItem() {
   const [nameInput, setNameInput] = useState("");
   const [lastNameInput, setLastNameInput] = useState("");
   const [wageInput, setWageInput] = useState("");
@@ -59,8 +59,6 @@ export default function AddModalItem({ onSubmit }) {
       // it needs if, else to succesful logic and so on.
       if (createItem(newItem)) {
         setSuccessfulVisible(true);
-        // fetchData
-        onSubmit();
         return;
       }
     }

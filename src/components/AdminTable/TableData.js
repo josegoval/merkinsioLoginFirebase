@@ -11,7 +11,10 @@ import AddModalItem from "./AddModalItem";
 import EditModalItem from "./EditModalItem";
 import DeleteModalItem from "./DeleteModalItem";
 // Firebase
-import { fetchDataFromEmployees } from "../../firebase/firebaseDatabaseCRUD";
+import {
+  fetchDataFromEmployees,
+  snapshotDataFromEmployees,
+} from "../../firebase/firebaseDatabaseCRUD";
 // Styles
 import "../../styles/styles.css";
 
@@ -33,7 +36,8 @@ function TableData() {
    * Initiatie fetchData
    */
   useEffect(() => {
-    fetchData();
+    const unsuscribe = snapshotDataFromEmployees(setData);
+    return () => unsuscribe();
   }, []);
 
   /**
@@ -132,9 +136,9 @@ function TableData() {
           pagination={paginationFactory()}
         />
         {/* Modals*/}
-        <AddModalItem onSubmit={fetchData} />
-        <EditModalItem item={selectedItem} onSubmit={fetchData} />
-        <DeleteModalItem item={selectedItem} onSubmit={fetchData} />
+        <AddModalItem />
+        <EditModalItem item={selectedItem} />
+        <DeleteModalItem item={selectedItem} />
       </div>
     </>
   );

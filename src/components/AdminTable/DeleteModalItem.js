@@ -4,12 +4,10 @@ import PropTypes from "prop-types";
 // Firebase
 import { deleteItem } from "../../firebase/firebaseDatabaseCRUD";
 
-export default function DeleteModalItem({ item, onSubmit }) {
+export default function DeleteModalItem({ item }) {
   const handleSubmit = () => {
     // Post to Database
     deleteItem(item.id);
-    // fetchData
-    onSubmit();
   };
 
   return (
