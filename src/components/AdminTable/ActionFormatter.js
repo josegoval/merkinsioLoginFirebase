@@ -17,7 +17,7 @@ export default function ActionFormatter({ row, onChangeSelectedItem }) {
           data-target="#editItemModal"
           onClick={() => onChangeSelectedItem(row)}
         >
-          <BiEdit size={23} />
+          <BiEdit size={23} title="Editar Registro" />
         </button>
         <button
           type="button"

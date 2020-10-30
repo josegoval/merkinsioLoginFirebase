@@ -4,8 +4,11 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 // Boostrap Table
 import BootstrapTable from "react-bootstrap-table-next";
+// Icons
+import { IoMdAddCircleOutline } from "react-icons/io";
 // Components
 import ActionFormatter from "./ActionFormatter";
+import AddModalItem from "./AddModalItem";
 import EditModalItem from "./EditModalItem";
 import DeleteModalItem from "./DeleteModalItem";
 
@@ -69,10 +72,30 @@ function TableData({ header, body }) {
 
   return (
     <>
-      <BootstrapTable keyField="id" data={data} columns={columns} />
-      {/* Edit Item Modal*/}
-      <EditModalItem item={selectedItem} />
-      <DeleteModalItem item={selectedItem} />
+      {/* Upper table options */}
+      <div>
+        <button
+          type="button"
+          className="btn btn-outline-primary mt-4 py-2 d-flex align-items-center justify-content-center"
+          data-toggle="modal"
+          data-target="#addItemModal"
+        >
+          <IoMdAddCircleOutline
+            size={23}
+            title="añadir nuevo trabajador"
+            className="mr-2"
+          />
+          <span> Añadir Trabajador</span>
+        </button>
+      </div>
+      {/* Table */}
+      <div className="d-flex flex-column mt-4">
+        <BootstrapTable keyField="id" data={data} columns={columns} />
+        {/* Modals*/}
+        <AddModalItem />
+        <EditModalItem item={selectedItem} />
+        <DeleteModalItem item={selectedItem} />
+      </div>
     </>
   );
 }

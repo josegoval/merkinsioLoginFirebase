@@ -1,3 +1,7 @@
 ¿Dónde va el navBar dentro del router?
 
 fragment or div
+
+tabindex
+
+https://flexboxfroggy.com/#es
