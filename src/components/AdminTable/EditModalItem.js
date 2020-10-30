@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 // Firebase
 import { modifyItem } from "../../firebase/firebaseDatabaseCRUD";
 
-export default function EditModalItem({ item }) {
+export default function EditModalItem({ item, onSubmit }) {
   const [nameInput, setNameInput] = useState(item.name);
   const [lastNameInput, setLastNameInput] = useState(item.lastName);
   const [wageInput, setWageInput] = useState(item.wage);
@@ -38,6 +38,8 @@ export default function EditModalItem({ item }) {
     modifyItem(modifiedItem);
     // Change Button icon
     setChangesSaved(true);
+    // fetchData
+    onSubmit();
   };
 
   return (

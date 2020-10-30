@@ -10,7 +10,7 @@ import {
   isNullOrEmpty,
 } from "../../utils/inputUtilities";
 
-export default function AddModalItem() {
+export default function AddModalItem({ onSubmit }) {
   const [nameInput, setNameInput] = useState("");
   const [lastNameInput, setLastNameInput] = useState("");
   const [wageInput, setWageInput] = useState("");
@@ -59,6 +59,8 @@ export default function AddModalItem() {
       // it needs if, else to succesful logic and so on.
       if (createItem(newItem)) {
         setSuccessfulVisible(true);
+        // fetchData
+        onSubmit();
         return;
       }
     }
@@ -105,7 +107,7 @@ export default function AddModalItem() {
                     onChange={(e) => setNameInput(e.target.value)}
                     value={nameInput}
                   />
-                  <div class="invalid-feedback">
+                  <div className="invalid-feedback">
                     Por favor, introduzca un nombre.
                   </div>
                 </div>
@@ -128,7 +130,7 @@ export default function AddModalItem() {
                     onChange={(e) => setLastNameInput(e.target.value)}
                     value={lastNameInput}
                   />
-                  <div class="invalid-feedback">
+                  <div className="invalid-feedback">
                     Por favor, introduzca un apellido.
                   </div>
                 </div>
@@ -148,7 +150,7 @@ export default function AddModalItem() {
                     onChange={(e) => setWageInput(e.target.value)}
                     value={wageInput}
                   />
-                  <div class="invalid-feedback">
+                  <div className="invalid-feedback">
                     Por favor, introduzca un salario válido.
                   </div>
                 </div>

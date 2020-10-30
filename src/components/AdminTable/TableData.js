@@ -1,32 +1,47 @@
 // React
-import React, { useState } from "react";
-// PropTypes
-import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
 // Boostrap Table
 import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from "react-bootstrap-table2-paginator";
 // Icons
-import { IoMdAddCircleOutline } from "react-icons/io";
+import { IoMdAddCircleOutline, IoIosCloudDownload } from "react-icons/io";
 // Components
 import ActionFormatter from "./ActionFormatter";
 import AddModalItem from "./AddModalItem";
 import EditModalItem from "./EditModalItem";
 import DeleteModalItem from "./DeleteModalItem";
-
+// Firebase
+import { fetchDataFromEmployees } from "../../firebase/firebaseDatabaseCRUD";
 // Styles
-// import "../styles/styles.css";
-// import "../views/test.css";
+import "../../styles/styles.css";
 
-function TableData({ header, body }) {
+const colStyle = {
+  "white-space": "normal",
+  "word-wrap": "break-word",
+};
+
+function TableData() {
   const [selectedItem, setSelectedItem] = useState({
     id: -1,
     name: "",
     lastName: "",
     wage: "",
   });
-  const [data, setData] = useState([
-    { id: 1, name: "Jose", lastName: "Gómez", wage: 2500 },
-    { id: 2, name: "Ruso", lastName: "Gómez", wage: 30000 },
-  ]);
+  const [data, setData] = useState([]);
+
+  /**
+   * Initiatie fetchData
+   */
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  /**
+   * Fetch data from firebase functionality
+   */
+  const fetchData = async () => {
+    setData(await fetchDataFromEmployees());
+  };
 
   const changeSelectedItem = (item) => {
     setSelectedItem(item);
@@ -40,21 +55,25 @@ function TableData({ header, body }) {
       dataField: "id",
       text: "ID",
       sort: true,
+      style: colStyle,
     },
     {
       dataField: "name",
       text: "Nombre",
       sort: true,
+      style: colStyle,
     },
     {
       dataField: "lastName",
       text: "Apellidos",
       sort: true,
+      style: colStyle,
     },
     {
       dataField: "wage",
       text: "Salario",
       sort: true,
+      style: colStyle,
     },
     {
       dataField: "actions",
@@ -73,10 +92,11 @@ function TableData({ header, body }) {
   return (
     <>
       {/* Upper table options */}
-      <div>
+      <div className="d-flex mt-4 py-2">
+        {/* add new */}
         <button
           type="button"
-          className="btn btn-outline-primary mt-4 py-2 d-flex align-items-center justify-content-center"
+          className="btn btn-outline-success d-flex align-items-center justify-content-center"
           data-toggle="modal"
           data-target="#addItemModal"
         >
@@ -85,24 +105,39 @@ function TableData({ header, body }) {
             title="añadir nuevo trabajador"
             className="mr-2"
           />
-          <span> Añadir Trabajador</span>
+          <span>Añadir Trabajador</span>
+        </button>
+        {/* fetch data */}
+        <button
+          type="button"
+          className="btn btn-outline-info ml-4 d-flex align-items-center justify-content-center"
+          onClick={() => fetchData()}
+        >
+          <IoIosCloudDownload
+            size={23}
+            title="actualizar registros"
+            className="m-2"
+          />
+          <span>Actualizar Registros</span>
         </button>
       </div>
       {/* Table */}
       <div className="d-flex flex-column mt-4">
-        <BootstrapTable keyField="id" data={data} columns={columns} />
+        <BootstrapTable
+          keyField="id"
+          data={data}
+          columns={columns}
+          striped
+          hover
+          pagination={paginationFactory()}
+        />
         {/* Modals*/}
-        <AddModalItem />
-        <EditModalItem item={selectedItem} />
-        <DeleteModalItem item={selectedItem} />
+        <AddModalItem onSubmit={fetchData} />
+        <EditModalItem item={selectedItem} onSubmit={fetchData} />
+        <DeleteModalItem item={selectedItem} onSubmit={fetchData} />
       </div>
     </>
   );
 }
-
-TableData.propTypes = {
-  header: PropTypes.arrayOf(PropTypes.string).isRequired,
-  body: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
-};
 
 export default TableData;

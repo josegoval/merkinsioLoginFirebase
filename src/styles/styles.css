@@ -6,3 +6,8 @@
 .tableHeight {
     height: 70%;
 }
+
+.tdStyleAdmin {
+    white-space: normal;
+    word-wrap: break-word;
+}
