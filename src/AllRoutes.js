@@ -1,22 +1,41 @@
 // React
-import React from "react";
+import React, { useEffect, useState } from "react";
 // Router
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+// Firebase
+import firebase from "./firebase/firebase-config";
 // Components
-import CustomNavBar from "./components/CustomNavBar";
+import UnloggedNavBar from "./components/NavBars/UnloggedNavBar";
+import LoggedNavBar from "./components/NavBars/LoggedNavBar";
 import Admin from "./views/Admin";
 import CreateAccount from "./views/CreateAccount";
-import Home from "./views/Home";
+// import Home from "./views/Home";
 import Login from "./views/Login";
 
 function AllRoutes() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const unsuscribe = firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        setLoggedIn(false);
+      } else {
+        setLoggedIn(true);
+      }
+    });
+    return () => unsuscribe();
+  });
+
   return (
     <BrowserRouter>
       {/* Header */}
-      <CustomNavBar />
+      {loggedIn ? <LoggedNavBar /> : <UnloggedNavBar />}
       {/* Switch */}
       <Switch>
         <Route path="/admin:token">
+          <Admin />
+        </Route>
+        <Route path="/admin">
           <Admin />
         </Route>
         <Route path="/login">
@@ -26,7 +45,8 @@ function AllRoutes() {
           <CreateAccount />
         </Route>
         <Route path="/">
-          <Home />
+          {/* <Home /> */}
+          {loggedIn ? <Redirect to="/admin" /> : <Redirect to="/login" />}
         </Route>
       </Switch>
     </BrowserRouter>

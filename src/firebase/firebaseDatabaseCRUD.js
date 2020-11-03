@@ -44,9 +44,10 @@ export async function fetchDataFromEmployees() {
   return fullData;
 }
 
-export async function snapshotDataFromEmployees(setData) {
+export function snapshotDataFromEmployees(setData) {
   // snapshot
-  const unsuscribe = await db.collection("employees").onSnapshot((snap) => {
+  const unsuscribe = db.collection("employees").onSnapshot((snap) => {
+    console.log("cambio");
     const newData = snap.docs.map((doc) => {
       return { id: doc.id, ...doc.data() };
     });

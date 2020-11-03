@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function CustomNavBar() {
+export default function UnloggedNavBar() {
   return (
     <nav className="navbar navbar-light bg-light">
       {/* Logo */}
@@ -9,15 +9,8 @@ export default function CustomNavBar() {
         Merkinsio Login App
       </Link>
       <div>
-        <Link to="/admin">
-          <button className="btn btn-outline-success my-2 mr-3" type="submit">
-            Admin
-          </button>
-        </Link>
         <Link to="/login">
-          <button className="btn btn-primary my-2" type="submit">
-            Login
-          </button>
+          <button className="btn btn-primary my-2">Login</button>
         </Link>
       </div>
 

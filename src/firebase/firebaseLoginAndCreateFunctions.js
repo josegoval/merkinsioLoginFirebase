@@ -55,6 +55,19 @@ export async function loginWithProvider(provider, scope = null) {
 }
 
 /**
+ * Try to log out from firebase.
+ * @returns true if it does succesfully, false if not.
+ */
+export async function logOut() {
+  try {
+    await firebase.auth().signOut();
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+/**
  * Translate the login error messace via code
  * @param {Error} param0 error to destruct
  */
