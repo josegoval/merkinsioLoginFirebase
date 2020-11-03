@@ -15,7 +15,7 @@ export async function modifyItem(item) {
   const newItem = { name: item.name, lastName: item.lastName, wage: item.wage };
   console.log(item);
   try {
-    await db.collection("employees").doc(item.id).set(newItem);
+    await db.collection("employees").doc(item.id).update(newItem);
     return true;
   } catch (error) {
     return false;

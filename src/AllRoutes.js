@@ -16,6 +16,7 @@ function AllRoutes() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
+    console.log(loggedIn);
     const unsuscribe = firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
         setLoggedIn(false);
@@ -46,7 +47,7 @@ function AllRoutes() {
         </Route>
         <Route path="/">
           {/* <Home /> */}
-          {loggedIn ? <Redirect to="/admin" /> : <Redirect to="/login" />}
+          {loggedIn ? <Admin loggedIn={loggedIn} /> : <Login />}
         </Route>
       </Switch>
     </BrowserRouter>

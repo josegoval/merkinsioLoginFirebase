@@ -1,6 +1,6 @@
-// REACT
-import React, { useState, useEffect } from "react";
-// VIEWS
+// React
+import React from "react";
+// Views
 import Admin from "./Admin";
 import Login from "./Login";
 
