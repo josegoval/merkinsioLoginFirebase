@@ -2,23 +2,18 @@
 import React, { useEffect } from "react";
 // Router
 import { useHistory, useParams } from "react-router-dom";
-// Firebase
-import firebase from "../firebase/firebase-config";
 // Components
 import TableData from "../components/AdminTable/TableData";
 
-export default function Admin() {
+export default function Admin({ loggedIn }) {
   let history = useHistory();
   const { token } = useParams();
 
   useEffect(() => {
-    const unsuscribe = firebase.auth().onAuthStateChanged((user) => {
-      if (!user) {
-        history.push("/login");
-      }
-    });
-    return () => unsuscribe();
-  });
+    if (!loggedIn) {
+      history.push("/login");
+    }
+  }, [loggedIn]);
 
   return (
     <div className="container">

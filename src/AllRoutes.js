@@ -33,10 +33,10 @@ function AllRoutes() {
       {/* Switch */}
       <Switch>
         <Route path="/admin:token">
-          <Admin />
+          <Admin loggedIn={loggedIn} />
         </Route>
         <Route path="/admin">
-          <Admin />
+          <Admin loggedIn={loggedIn} />
         </Route>
         <Route path="/login">
           <Login />
