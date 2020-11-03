@@ -4,6 +4,7 @@ import firebase from "firebase/app";
 // Add the Firebase products that you want to use
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/storage";
 
 // TODO: Replace the following with your app's Firebase project configuration
 var firebaseConfig = {
@@ -20,6 +21,8 @@ var firebaseConfig = {
 export default firebase.initializeApp(firebaseConfig);
 // database
 export const db = firebase.firestore();
+// storage
+export const storageRef = firebase.storage().ref();
 
 // Providers
 export const googleProvider = new firebase.auth.GoogleAuthProvider();

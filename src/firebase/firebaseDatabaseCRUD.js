@@ -11,8 +11,18 @@ export async function deleteItem(id) {
   }
 }
 
+/**
+ * Modify the item in firebase database. If there's no image, it sets to null.
+ * @param {object} item
+ * @returns true if successful, false if not.
+ */
 export async function modifyItem(item) {
-  const newItem = { name: item.name, lastName: item.lastName, wage: item.wage };
+  const newItem = {
+    name: item.name,
+    lastName: item.lastName,
+    wage: item.wage,
+    img: item.img || null,
+  };
   console.log(item);
   try {
     await db.collection("employees").doc(item.id).update(newItem);
@@ -23,9 +33,14 @@ export async function modifyItem(item) {
 }
 
 export async function createItem(item) {
-  console.log(item);
+  const newItem = {
+    name: item.name,
+    lastName: item.lastName,
+    wage: item.wage,
+    img: item.img || null,
+  };
   try {
-    await db.collection("employees").add(item);
+    await db.collection("employees").add(newItem);
     return true;
   } catch (error) {
     return false;

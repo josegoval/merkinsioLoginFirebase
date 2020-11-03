@@ -15,12 +15,13 @@ Crear archivo que comunique el archivo con la cuenta de firebase
 
 - SEGUNDA TAREA -
 
-[] - 1. Crear un nuevo formater-icon para subir una imagen.
+[x] - 1. Crear un nuevo formater-icon para subir una imagen.
 [] - 2. Crear un modal que permita subir una imagen.
 [] - 3. Mostrar en el modal, a la derecha, la imagen que estás subiendo.
 [] - 4. Crear una nueva vista que muestre todas las cards con formato CARD(imagen, nombre, apellido, salario).
 [] - 5. Vista de las cards, en movil 2 cards por fila, en web, más.
 [] - 6. Crear un filtro para las cards.
+[] - 7. Solo deje subir una imagen en la seleccion.
 
 Mockup card:
 https://www.figma.com/file/6bc0D1zpI6Jm9XILZ5AFHi/Untitled?node-id=0%3A1

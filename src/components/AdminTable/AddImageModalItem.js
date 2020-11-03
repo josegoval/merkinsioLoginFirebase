@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 // Firebase
 import { modifyItem } from "../../firebase/firebaseDatabaseCRUD";
 
-export default function EditModalItem({ item }) {
+export default function AddImageModalItem({ item }) {
   const [nameInput, setNameInput] = useState(item.name);
   const [lastNameInput, setLastNameInput] = useState(item.lastName);
   const [wageInput, setWageInput] = useState(item.wage);
@@ -43,7 +43,7 @@ export default function EditModalItem({ item }) {
   return (
     <div
       className="modal fade"
-      id="editItemModal"
+      id="addImageItemModal"
       tabIndex="-1"
       role="dialog"
       aria-labelledby="editItem"
@@ -53,7 +53,7 @@ export default function EditModalItem({ item }) {
         <div className="modal-content">
           {/* Header */}
           <div className="modal-header">
-            <h3 className="modal-title">Modificar registro</h3>
+            <h3 className="modal-title">Añadir Imagen</h3>
             <button
               type="button"
               className="close"
@@ -158,7 +158,7 @@ export default function EditModalItem({ item }) {
   );
 }
 
-EditModalItem.propTypes = {
+AddImageModalItem.propTypes = {
   item: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,

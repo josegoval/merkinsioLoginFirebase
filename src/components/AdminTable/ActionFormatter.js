@@ -12,7 +12,7 @@ export default function ActionFormatter({ row, onChangeSelectedItem }) {
           type="button"
           className="btn btn-secondary mr-2 mb-xs-2 mb-sm-2 mb-md-0 mb-lg-0"
           data-toggle="modal"
-          data-target="#addImageModal"
+          data-target="#addImageItemModal"
           onClick={() => onChangeSelectedItem(row)}
         >
           <BiImageAdd size={23} title="Añadir Imagen" />

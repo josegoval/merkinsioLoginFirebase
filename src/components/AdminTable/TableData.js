@@ -8,6 +8,7 @@ import { IoMdAddCircleOutline, IoIosCloudDownload } from "react-icons/io";
 // Components
 import ActionFormatter from "./ActionFormatter";
 import AddModalItem from "./AddModalItem";
+import AddImageModalItem from "./AddImageModalItem";
 import EditModalItem from "./EditModalItem";
 import DeleteModalItem from "./DeleteModalItem";
 // Firebase
@@ -137,6 +138,7 @@ function TableData() {
         />
         {/* Modals*/}
         <AddModalItem />
+        <AddImageModalItem item={selectedItem} />
         <EditModalItem item={selectedItem} />
         <DeleteModalItem item={selectedItem} />
       </div>
