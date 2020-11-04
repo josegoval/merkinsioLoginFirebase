@@ -10,7 +10,7 @@ function EmployeeCard({ name, lastName, wage, image }) {
     <div className="card bg-light text-center cards-EmployeeCard">
       {/* Image size: 110x125  */}
       <div className="px-3 pt-2">
-        {image ? (
+        {image instanceof Blob ? (
           <img
             className="card-img-top"
             src={URL.createObjectURL(image)}

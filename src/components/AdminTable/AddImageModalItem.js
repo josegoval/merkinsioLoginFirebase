@@ -23,6 +23,7 @@ export default function AddImageModalItem({ item }) {
 
   const handleImageFileInput = async (event) => {
     const file = event.target.files[0];
+    console.log(file);
     const resizedImage = await resizeCardImage(file);
     console.log(resizedImage);
     setImageFileInput(resizedImage);
@@ -68,7 +69,7 @@ export default function AddImageModalItem({ item }) {
             />
             <form>
               {/* file input */}
-              <div className="form-group d-flex justify-content-center mt-4 mb-0">
+              <div className="form-group d-flex flex-column justify-content-center mt-4 mb-0">
                 <label
                   for="imageFileInput"
                   className="btn btn-primary d-flex justify-content-center align-items-center"
@@ -83,6 +84,9 @@ export default function AddImageModalItem({ item }) {
                     onChange={handleImageFileInput}
                   />
                 </label>
+                <small id="imageHelp" class="form-text text-muted">
+                  Por favor suba una foto de carnet 9x16 ratio.
+                </small>
               </div>
             </form>
           </div>
