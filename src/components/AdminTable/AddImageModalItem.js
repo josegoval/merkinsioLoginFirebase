@@ -57,16 +57,18 @@ export default function AddImageModalItem({ item }) {
     setSuccessData(data);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (imageFileInput) {
       // Upload to Storage && set callbacks
-      const uploadTask = await uploadEmployeeImage(imageFileInput);
+      const uploadTask = uploadEmployeeImage(imageFileInput);
+      console.log("aplico");
       setUploadStorageCallbacks(
         uploadTask,
         onStateChangeCallback,
         onErrorCallback,
         onSuccessCallback
       );
+      console.log("despues");
       // Post to Database
       // modifyItem(modifiedItem);
     }

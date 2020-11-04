@@ -9,12 +9,12 @@ import { storageRef, storage } from "./firebase-config";
  * @param {String} route
  * @returns firebase.storage.UploadTask or null if any error happens.
  */
-async function uploadFile(file, route) {
+function uploadFile(file, route) {
   let uploadTask = null;
 
   try {
     const imgFolderRef = storageRef.child(`${route}/${file.name}`);
-    uploadTask = await imgFolderRef.put(file);
+    uploadTask = imgFolderRef.put(file);
     return uploadTask;
   } catch (error) {
     return uploadTask;
@@ -26,8 +26,8 @@ async function uploadFile(file, route) {
  * @param {File} imageFile
  * @returns firebase.storage.UploadTask or null if any error happens.
  */
-export async function uploadEmployeeImage(imageFile) {
-  return await uploadFile(imageFile, "employees/img");
+export function uploadEmployeeImage(imageFile) {
+  return uploadFile(imageFile, "employees/img");
 }
 
 // CALLBACK FUNCTIONS TO uploadTask
@@ -60,7 +60,7 @@ export function setUploadStorageCallbacks(
     successCallback(getUploadSuccess(uploadTask));
   };
   // Set those callbacks to the uploadTask.on(...)
-  uploadTask.task.on(
+  uploadTask.on(
     "state_changed",
     onGetUploadPercentage,
     onGetUploadError,
@@ -78,10 +78,10 @@ function getUploadPercentage(snapshot) {
   const data = [-1, snapshot.bytesTransferred, snapshot.totalBytes];
 
   switch (snapshot.state) {
-    case storage.TaskState.PAUSED:
+    case "paused":
       break;
 
-    case storage.TaskState.RUNNING:
+    case "running":
       data[0] = (data[1] / data[2]) * 100;
       break;
 
