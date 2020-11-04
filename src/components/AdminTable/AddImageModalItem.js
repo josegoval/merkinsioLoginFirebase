@@ -25,6 +25,10 @@ export default function AddImageModalItem({ item }) {
    * Modify button design if state or prop changes
    */
   useEffect(() => {
+    setImageFileInput(null);
+    setuploadData(null);
+    setErrorMessage(null);
+    setSuccessData(null);
     setUploadState(0);
   }, [item]);
 
