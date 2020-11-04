@@ -21,11 +21,14 @@ export default function LoggedNavBar() {
         Merkinsio Login App
       </Link>
       <div>
+        <Link to="/cards">
+          <button className="btn btn-outline-info my-2 mr-3">Cards</button>
+        </Link>
         <Link to="/admin">
-          <button className="btn btn-outline-success my-2 mr-3">Admin</button>
+          <button className="btn btn-outline-primary my-2 mr-3">Admin</button>
         </Link>
         <Link to="/login" onClick={logOutFromFirebase}>
-          <button className="btn btn-primary my-2">Log out</button>
+          <button className="btn btn-danger my-2">Log out</button>
         </Link>
       </div>
 

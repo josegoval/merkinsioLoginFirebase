@@ -22,7 +22,8 @@ export default firebase.initializeApp(firebaseConfig);
 // database
 export const db = firebase.firestore();
 // storage
-export const storageRef = firebase.storage().ref();
+export const storage = firebase.storage();
+export const storageRef = storage.ref();
 
 // Providers
 export const googleProvider = new firebase.auth.GoogleAuthProvider();

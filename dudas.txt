@@ -8,3 +8,6 @@ https://flexboxfroggy.com/#es
 
 ¿la forma en la que hago la consulta es correcta (get) haciendo await sobre el set?
 ¿habría alguna manera de evitar hacer await al set o siempre exigiría la asincronía?
+
+
+¿Cómo está el diseño de la navBar? Los botones, outline o enteros, o combinados.
