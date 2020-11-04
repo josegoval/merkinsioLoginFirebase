@@ -9,13 +9,12 @@ import { storageRef, storage } from "./firebase-config";
  * @param {String} route
  * @returns firebase.storage.UploadTask or null if any error happens.
  */
-function uploadFile(file, route) {
+async function uploadFile(file, route) {
   let uploadTask = null;
 
   try {
     const imgFolderRef = storageRef.child(`${route}/${file.name}`);
-    uploadTask = imgFolderRef.put(file);
-
+    uploadTask = await imgFolderRef.put(file);
     return uploadTask;
   } catch (error) {
     return uploadTask;
@@ -25,9 +24,10 @@ function uploadFile(file, route) {
 /**
  * Upload the file image to employes/img firebase storage folder.
  * @param {File} imageFile
+ * @returns firebase.storage.UploadTask or null if any error happens.
  */
-export function uploadEmployeeImage(imageFile) {
-  return uploadFile(imageFile, "employees/img");
+export async function uploadEmployeeImage(imageFile) {
+  return await uploadFile(imageFile, "employees/img");
 }
 
 // CALLBACK FUNCTIONS TO uploadTask
@@ -60,8 +60,8 @@ export function setUploadStorageCallbacks(
     successCallback(getUploadSuccess(uploadTask));
   };
   // Set those callbacks to the uploadTask.on(...)
-  uploadTask.on(
-    storage.TaskEvent.STATE_CHANGED,
+  uploadTask.task.on(
+    "state_changed",
     onGetUploadPercentage,
     onGetUploadError,
     onGetUploadSuccess

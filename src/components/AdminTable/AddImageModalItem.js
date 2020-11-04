@@ -2,6 +2,10 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 // Firebase
+import {
+  uploadEmployeeImage,
+  setUploadStorageCallbacks,
+} from "../../firebase/firebaseStorageCRUD";
 import { modifyItem } from "../../firebase/firebaseDatabaseCRUD";
 // Icons
 import { BiCloudUpload } from "react-icons/bi";
@@ -12,28 +16,60 @@ import { resizeCardImage } from "../../utils/imageResizer";
 
 export default function AddImageModalItem({ item }) {
   const [imageFileInput, setImageFileInput] = useState(null);
-  const [changesSaved, setChangesSaved] = useState(false);
+  const [uploadData, setuploadData] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [successData, setSuccessData] = useState(null);
+  const [uploadState, setUploadState] = useState(0);
 
   /**
    * Modify button design if state or prop changes
    */
   useEffect(() => {
-    setChangesSaved(false);
-  }, []);
+    setUploadState(0);
+  }, [item]);
 
   const handleImageFileInput = async (event) => {
     const file = event.target.files[0];
-    console.log(file);
-    const resizedImage = await resizeCardImage(file);
-    console.log(resizedImage);
-    setImageFileInput(resizedImage);
+    if (file) {
+      const resizedImage = await resizeCardImage(file);
+      const formatName = file.name.split(".");
+      setImageFileInput(
+        new File(
+          [resizedImage],
+          item.id + "IMG." + formatName[formatName.length - 1]
+        )
+      );
+    }
   };
 
-  const handleSubmit = () => {
-    // Post to Database
-    // modifyItem(modifiedItem);
-    // Change Button icon
-    setChangesSaved(true);
+  const onStateChangeCallback = (data) => {
+    console.log(data[0]);
+    setuploadData(data);
+    // if (data[0] >= 0) {
+    // }
+  };
+
+  const onErrorCallback = (message) => {
+    setErrorMessage(message);
+  };
+
+  const onSuccessCallback = (data) => {
+    setSuccessData(data);
+  };
+
+  const handleSubmit = async () => {
+    if (imageFileInput) {
+      // Upload to Storage && set callbacks
+      const uploadTask = await uploadEmployeeImage(imageFileInput);
+      setUploadStorageCallbacks(
+        uploadTask,
+        onStateChangeCallback,
+        onErrorCallback,
+        onSuccessCallback
+      );
+      // Post to Database
+      // modifyItem(modifiedItem);
+    }
   };
 
   return (
@@ -101,10 +137,20 @@ export default function AddImageModalItem({ item }) {
             </button>
             <button
               type="button"
-              className={`btn ${changesSaved ? "btn-primary" : "btn-success"}`}
+              className={`btn ${
+                uploadState === 0
+                  ? "btn-success"
+                  : uploadState === 1
+                  ? "btn-warning"
+                  : "btn-primary"
+              }`}
               onClick={handleSubmit}
             >
-              {changesSaved ? "Cambios Guardados" : "Guardar Modificación"}
+              {uploadState === 0
+                ? "Subir Imagen"
+                : uploadState === 1
+                ? "Subiendo imagen"
+                : "Imagen Subida"}
             </button>
           </div>
         </div>
