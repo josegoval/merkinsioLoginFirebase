@@ -1,41 +1,36 @@
 // React
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-
 // Firebase
 import { modifyItem } from "../../firebase/firebaseDatabaseCRUD";
+// Icons
+import { BiCloudUpload } from "react-icons/bi";
+// Components
+import EmployeeCard from "../Cards/EmployeeCard";
+// Utils
+import { resizeCardImage } from "../../utils/imageResizer";
 
 export default function AddImageModalItem({ item }) {
-  const [nameInput, setNameInput] = useState(item.name);
-  const [lastNameInput, setLastNameInput] = useState(item.lastName);
-  const [wageInput, setWageInput] = useState(item.wage);
+  const [imageFileInput, setImageFileInput] = useState(null);
   const [changesSaved, setChangesSaved] = useState(false);
-
-  /**
-   * Modify the state if prop changes
-   */
-  useEffect(() => {
-    setNameInput(item.name);
-    setLastNameInput(item.lastName);
-    setWageInput(item.wage);
-  }, [item]);
 
   /**
    * Modify button design if state or prop changes
    */
   useEffect(() => {
     setChangesSaved(false);
-  }, [nameInput, lastNameInput, wageInput, item]);
+  }, []);
+
+  const handleImageFileInput = async (event) => {
+    const file = event.target.files[0];
+    const resizedImage = await resizeCardImage(file);
+    console.log(resizedImage);
+    setImageFileInput(resizedImage);
+  };
 
   const handleSubmit = () => {
-    const modifiedItem = {
-      id: item.id,
-      name: nameInput,
-      lastName: lastNameInput,
-      wage: wageInput,
-    };
     // Post to Database
-    modifyItem(modifiedItem);
+    // modifyItem(modifiedItem);
     // Change Button icon
     setChangesSaved(true);
   };
@@ -64,74 +59,30 @@ export default function AddImageModalItem({ item }) {
             </button>
           </div>
           {/* Body */}
-          <div className="modal-body">
+          <div className="modal-body d-flex flex-column align-items-center">
+            <EmployeeCard
+              name={item.name}
+              lastName={item.lastName}
+              wage={item.wage}
+              image={imageFileInput}
+            />
             <form>
-              {/* id */}
-              <div className="form-group row">
-                <label htmlFor="editId" className="col-sm-2 col-form-label">
-                  Id
-                </label>
-                <div className="col-sm-10">
-                  <input
-                    type="text"
-                    readOnly
-                    className="form-control"
-                    id="editId"
-                    value={item.id}
-                  />
-                </div>
-              </div>
-              {/* name */}
-              <div className="form-group row">
-                <label htmlFor="editName" className="col-sm-2 col-form-label">
-                  Nombre
-                </label>
-                <div className="col-sm-10">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="editName"
-                    placeholder="Nombre del trabajador"
-                    onChange={(e) => setNameInput(e.target.value)}
-                    value={nameInput}
-                  />
-                </div>
-              </div>
-              {/* lastname */}
-              <div className="form-group row">
+              {/* file input */}
+              <div className="form-group d-flex justify-content-center mt-4 mb-0">
                 <label
-                  htmlFor="editLastName"
-                  className="col-sm-2 col-form-label"
+                  for="imageFileInput"
+                  className="btn btn-primary d-flex justify-content-center align-items-center"
                 >
-                  Apellidos
-                </label>
-                <div className="col-sm-10">
+                  <BiCloudUpload title="Subir Imagen" size={30} />
+                  <span className="ml-1">Seleccione una imagen.</span>
                   <input
-                    type="text"
-                    className="form-control"
-                    id="editLastName"
-                    placeholder="Apellidos del trabajador"
-                    onChange={(e) => setLastNameInput(e.target.value)}
-                    value={lastNameInput}
+                    type="file"
+                    className="d-none"
+                    id="imageFileInput"
+                    accept="image/*"
+                    onChange={handleImageFileInput}
                   />
-                </div>
-              </div>
-              {/* wage */}
-              <div className="form-group row">
-                <label htmlFor="editWage" className="col-sm-2 col-form-label">
-                  Sueldo
                 </label>
-                <div className="col-sm-10">
-                  <input
-                    type="number"
-                    step="0.01"
-                    placeholder="0.00"
-                    className="form-control"
-                    id="editWage"
-                    onChange={(e) => setWageInput(e.target.value)}
-                    value={wageInput}
-                  />
-                </div>
               </div>
             </form>
           </div>

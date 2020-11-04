@@ -11,3 +11,19 @@
     white-space: normal;
     word-wrap: break-word;
 }
+
+.cards-EmployeeCard {
+    width: 200px;
+}
+
+.cards-EmployeeCard-salary {
+    font-size: 27px;
+}
+
+.cards-EmployeeCard-image {
+    border-radius: 10px;
+}
+
+.red {
+    background-color: rebeccapurple;
+}
