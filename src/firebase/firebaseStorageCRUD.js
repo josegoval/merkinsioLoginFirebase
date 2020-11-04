@@ -56,8 +56,8 @@ export function setUploadStorageCallbacks(
     errorCallback(getUploadError(error));
   };
   // Success
-  const onGetUploadSuccess = () => {
-    successCallback(getUploadSuccess(uploadTask));
+  const onGetUploadSuccess = async () => {
+    successCallback(await getUploadSuccess(uploadTask));
   };
   // Set those callbacks to the uploadTask.on(...)
   uploadTask.on(
@@ -134,7 +134,7 @@ async function getUploadSuccess(uploadTask) {
   const response = ["Archivo subido con éxito.", ""];
   try {
     const url = await uploadTask.snapshot.ref.getDownloadURL();
-    response[1] = [url];
+    response[1] = url;
   } catch (error) {
     response[1] = [null];
   }
