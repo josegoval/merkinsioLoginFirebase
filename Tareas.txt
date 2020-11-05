@@ -22,8 +22,8 @@ Crear archivo que comunique el archivo con la cuenta de firebase
 [x] - 5. Guardar la ruta o relacionarla con el registro de empleado en cuestion.
 [x] - 6. Crear una nueva vista que muestre todas las cards con formato CARD(imagen, nombre, apellido, salario).
 [x] - 7. Vista de las cards, en movil 2 cards por fila, en web, más.
-[] - 8. Crear un filtro para las cards.
-[] - 9. Solo deje subir una imagen en la seleccion.
+[x] - 8. Crear un filtro para las cards.
+[x] - 9. Solo deje subir una imagen en la seleccion.
 [] - Extra. Image Cropper
 [] - Extra. Fixed Image size
 
