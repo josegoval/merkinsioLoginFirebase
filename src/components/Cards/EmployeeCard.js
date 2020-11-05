@@ -28,7 +28,7 @@ function EmployeeCard({ name, lastName, wage, image }) {
         <span className="card-text">{name}</span>
         <h4 className="card-title mb-1">{lastName}</h4>
         <span className="card-text d-flex justify-content-center align-items-center">
-          <FaMoneyCheckAlt title="salario" size={30} />
+          <FaMoneyCheckAlt title="salario" size={30} className="pt-1" />
           <span className="pl-3 cards-EmployeeCard-salary">{`${wage} €`}</span>
         </span>
       </div>
