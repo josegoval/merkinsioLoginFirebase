@@ -24,6 +24,15 @@
     border-radius: 10px;
 }
 
+.addImageModalItem-ProgressBar-textPercentage {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.addImageModalItem-ProgressBar-textData {
+    font-size: 13px;
+}
+
 .red {
     background-color: rebeccapurple;
 }

@@ -13,6 +13,8 @@ import { BiCloudUpload } from "react-icons/bi";
 import EmployeeCard from "../Cards/EmployeeCard";
 // Utils
 import { resizeCardImage } from "../../utils/imageResizer";
+// Styles
+import "../../styles/styles.css";
 
 export default function AddImageModalItem({ item }) {
   const [imageFileInput, setImageFileInput] = useState(null);
@@ -48,7 +50,7 @@ export default function AddImageModalItem({ item }) {
   };
 
   const onStateChangeCallback = (data) => {
-    // console.log(data[0]);
+    console.log(data[0]);
     setUploadState(1);
     setuploadData(data);
     // if (data[0] >= 0) {
@@ -142,10 +144,46 @@ export default function AddImageModalItem({ item }) {
             </form>
           </div>
           {/* Progress Bar */}
+          <div
+            className={`progress ${
+              uploadState !== 0 && uploadData ? "visible" : "d-none"
+            }`}
+            style={{ height: "30px" }}
+          >
+            <div
+              className={`progress-bar progress-bar-striped 
+              progress-bar-animated ${
+                uploadState === 1
+                  ? "bg-info"
+                  : uploadState === 2
+                  ? "bg-success"
+                  : "bg-danger"
+              }`}
+              role="progressbar"
+              aria-valuenow={uploadData ? uploadData[0] : 0}
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style={{ width: `${uploadData ? uploadData[0] : 0}%` }}
+            >
+              {uploadState !== 0 && uploadData ? (
+                <div className="d-flex justify-content-center align-items-center">
+                  <span className="addImageModalItem-ProgressBar-textPercentage mr-1">
+                    {uploadData[0]}%
+                  </span>
+                  <span className="addImageModalItem-ProgressBar-textData">
+                    {`[${uploadData[1]} bytes/${uploadData[2]} /
+                  bytes]`}
+                  </span>
+                </div>
+              ) : (
+                <></>
+              )}
+            </div>
+          </div>
           {/* Alerts */}
           <div>
             <div
-              class={`alert alert-danger ${
+              className={`alert alert-danger mt-2 ${
                 uploadState === 0 && errorMessage ? "visible" : "d-none"
               }`}
               role="alert"
@@ -153,7 +191,7 @@ export default function AddImageModalItem({ item }) {
               {errorMessage}
             </div>
             <div
-              class={`alert alert-success ${
+              className={`alert alert-success mt-2 ${
                 uploadState === 2 ? "visible" : "d-none"
               }`}
               role="alert"

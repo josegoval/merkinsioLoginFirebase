@@ -2,7 +2,7 @@
 import { db } from "./firebase-config";
 
 export async function deleteItem(id) {
-  console.log(id);
+  // console.log(id);
   try {
     await db.collection("employees").doc(id).delete();
     return true;
@@ -23,7 +23,7 @@ export async function modifyItem(item) {
     wage: item.wage,
     img: item.img || null,
   };
-  console.log(item);
+  // console.log(item);
   try {
     await db.collection("employees").doc(item.id).update(newItem);
     return true;
@@ -62,7 +62,7 @@ export async function fetchDataFromEmployees() {
 export function snapshotDataFromEmployees(setData) {
   // snapshot
   const unsuscribe = db.collection("employees").onSnapshot((snap) => {
-    console.log("cambio");
+    // console.log("cambio");
     const newData = snap.docs.map((doc) => {
       return { id: doc.id, ...doc.data() };
     });
