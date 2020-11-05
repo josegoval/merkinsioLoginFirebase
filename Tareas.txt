@@ -18,8 +18,8 @@ Crear archivo que comunique el archivo con la cuenta de firebase
 [x] - 1. Crear un nuevo formater-icon para subir una imagen.
 [x] - 2. Crear un modal que permita subir una imagen.
 [x] - 3. Mostrar en el modal la imagen que estás subiendo.
-[] - 4. Subir la Imagen al Storage
-[] - 5. Guardar la ruta o relacionarla con el registro de empleado en cuestion.
+[x] - 4. Subir la Imagen al Storage
+[x] - 5. Guardar la ruta o relacionarla con el registro de empleado en cuestion.
 [] - 6. Crear una nueva vista que muestre todas las cards con formato CARD(imagen, nombre, apellido, salario).
 [] - 7. Vista de las cards, en movil 2 cards por fila, en web, más.
 [] - 8. Crear un filtro para las cards.

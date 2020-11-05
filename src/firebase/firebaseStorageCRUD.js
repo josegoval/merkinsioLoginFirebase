@@ -1,5 +1,5 @@
 // Firebase
-import { storageRef, storage } from "./firebase-config";
+import { storageRef } from "./firebase-config";
 
 //   https://firebase.google.com/docs/storage/web/upload-files?hl=es
 

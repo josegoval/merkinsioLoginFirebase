@@ -19,6 +19,7 @@ export default function AddImageModalItem({ item }) {
   const [uploadData, setuploadData] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [successData, setSuccessData] = useState(null);
+  // 0 = none, 1 = uploading, 2 = uploaded.
   const [uploadState, setUploadState] = useState(0);
 
   /**
@@ -40,41 +41,49 @@ export default function AddImageModalItem({ item }) {
       setImageFileInput(
         new File(
           [resizedImage],
-          item.id + "IMG." + formatName[formatName.length - 1]
+          item.id + "-IMG." + formatName[formatName.length - 1]
         )
       );
     }
   };
 
   const onStateChangeCallback = (data) => {
-    console.log(data[0]);
+    // console.log(data[0]);
+    setUploadState(1);
     setuploadData(data);
     // if (data[0] >= 0) {
     // }
   };
 
   const onErrorCallback = (message) => {
+    setUploadState(0);
     setErrorMessage(message);
   };
 
   const onSuccessCallback = (data) => {
+    console.log(data[1]);
     setSuccessData(data);
+    // Upload the image route to this employee document
+    if (modifyItem({ ...item, img: data[1] })) {
+      setUploadState(2);
+      return;
+    }
+    // if error...
+    setErrorMessage("No se pudieron guardar los cambios.");
+    setUploadState(0);
   };
 
   const handleSubmit = () => {
     if (imageFileInput) {
       // Upload to Storage && set callbacks
       const uploadTask = uploadEmployeeImage(imageFileInput);
-      console.log("aplico");
       setUploadStorageCallbacks(
         uploadTask,
         onStateChangeCallback,
         onErrorCallback,
         onSuccessCallback
       );
-      console.log("despues");
-      // Post to Database
-      // modifyItem(modifiedItem);
+      // Post to Database in onSuccessCallback
     }
   };
 
@@ -131,6 +140,26 @@ export default function AddImageModalItem({ item }) {
                 </small>
               </div>
             </form>
+          </div>
+          {/* Progress Bar */}
+          {/* Alerts */}
+          <div>
+            <div
+              class={`alert alert-danger ${
+                uploadState === 0 && errorMessage ? "visible" : "d-none"
+              }`}
+              role="alert"
+            >
+              {errorMessage}
+            </div>
+            <div
+              class={`alert alert-success ${
+                uploadState === 2 ? "visible" : "d-none"
+              }`}
+              role="alert"
+            >
+              {successData && successData[0]}
+            </div>
           </div>
           {/* Buttons */}
           <div className="modal-footer">
