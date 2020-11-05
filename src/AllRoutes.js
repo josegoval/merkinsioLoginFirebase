@@ -11,6 +11,7 @@ import Admin from "./views/Admin";
 import CreateAccount from "./views/CreateAccount";
 // import Home from "./views/Home";
 import Login from "./views/Login";
+import Cards from "./views/Cards";
 
 function AllRoutes() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -33,6 +34,9 @@ function AllRoutes() {
       {loggedIn ? <LoggedNavBar /> : <UnloggedNavBar />}
       {/* Switch */}
       <Switch>
+        <Route path="/cards">
+          <Cards loggedIn={loggedIn} />
+        </Route>
         <Route path="/admin:token">
           <Admin loggedIn={loggedIn} />
         </Route>

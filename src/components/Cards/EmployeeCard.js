@@ -12,14 +12,20 @@ function EmployeeCard({ name, lastName, wage, image }) {
       <div className="px-3 pt-2">
         {image instanceof Blob ? (
           <img
-            className="card-img-top"
+            // Current Preview
+            className="card-img-top cards-EmployeeCard-image"
             src={URL.createObjectURL(image)}
             alt="Vista Previa de la Imagen"
           />
         ) : (
           <img
+            //  Empty or url image
             className="card-img-top cards-EmployeeCard-image"
-            src="./images/employee_preview.png"
+            src={
+              typeof image === "string"
+                ? image
+                : "./images/employee_preview.png"
+            }
             alt="Vista Previa de la Imagen"
           />
         )}

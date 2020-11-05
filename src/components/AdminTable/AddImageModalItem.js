@@ -181,7 +181,7 @@ export default function AddImageModalItem({ item }) {
             </div>
           </div>
           {/* Alerts */}
-          <div>
+          <div className="text-center">
             <div
               className={`alert alert-danger mt-2 ${
                 uploadState === 0 && errorMessage ? "visible" : "d-none"
