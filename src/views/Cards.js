@@ -143,7 +143,7 @@ export default function Cards({ loggedIn }) {
         </div>
       </form>
       {/* Cards */}
-      <div className="d-flex flex-wrap justify-content-around red">
+      <div className="d-flex flex-wrap justify-content-around">
         {data &&
           data.map((employee) => {
             if (employee.display) {
@@ -161,7 +161,7 @@ export default function Cards({ loggedIn }) {
             return <></>;
           })}
       </div>
-      <div className="row justify-content-around blue">
+      {/* <div className="row justify-content-around blue">
         {data &&
           data.map((employee) => {
             if (employee.display) {
@@ -178,7 +178,7 @@ export default function Cards({ loggedIn }) {
             }
             return <></>;
           })}
-      </div>
+      </div> */}
     </div>
   );
   // comprobar si esta logeado - admin sino login

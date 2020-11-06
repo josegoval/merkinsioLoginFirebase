@@ -11,3 +11,7 @@ https://flexboxfroggy.com/#es
 
 
 ¿Cómo está el diseño de la navBar? Los botones, outline o enteros, o combinados.
+
+¿Porque me recomienda poner history como dependencia en useEffect[]?
+
+¿Qué ocurre conel react strict mode? => renderiza 2 veces... ¿Es necesario?
